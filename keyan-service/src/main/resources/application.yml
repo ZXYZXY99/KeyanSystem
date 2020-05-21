@@ -1,0 +1,58 @@
+spring:
+  application:
+    name: keyan-service
+  redis:
+    timeout: 50000
+    host: 47.110.72.74
+    port: 6378
+    password: redis-01
+  druid:
+    borrowConnectionTimeout: 30000
+    maxActive: 20
+    maxWait: 10000
+    minEvictableIdleTimeMillis: 300000
+    minIdle: 3
+    password: password
+    timeBetweenEvictionRunsMillis: 60000
+    url: jdbc:mysql://47.110.72.74/keyanSystem?serverTimezone=UTC
+    username: root
+    validationQuery: SELECT 'x'
+  main:
+    allow-bean-definition-overriding: true
+  cloud:
+    loadbalancer:
+      ribbon:
+        enabled: false
+    zookeeper:
+      connect-string: 47.110.72.74:2181
+      config:
+        discovery:
+          enabled: true
+          service-id: config
+  mvc:
+    async:
+      request-timeout: 200000
+  jwt:
+    config:
+      key: Test
+      ttl: 3600000
+  ribbon:
+    ReadTimeout: 60000
+    ConnectTimeout: 60000
+  hystrix:
+    command:
+      default:
+        execution:
+          timeout:
+            enabled: true
+          isolation:
+            thread:
+              timeoutInMilliseconds: 240000
+
+server:
+  port: 8097
+  #show sql
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+

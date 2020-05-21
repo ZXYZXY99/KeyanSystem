@@ -1,0 +1,94 @@
+server:
+  error:
+    whitelabel:
+      enabled: false
+  port: 8098
+#  tomcat:
+#    max-threads: 2000
+#    max-http-form-post-size: 20MB
+#  undertow:
+#    buffer-size: 1024
+#    direct-buffers: true
+#  ssl:
+#    #    key-password: 123456
+#    key-store: classpath:3881297_chenjie.plus.pfx
+#    key-store-password: FPpAIKiq
+#    key-store-type: PKCS12
+
+spring:
+  redis:
+    timeout: 15000
+    host: 47.110.72.74
+    port: 6378
+    password: redis-01
+  cloud:
+    loadbalancer:
+      ribbon:
+        enabled: false
+    zookeeper:
+      connect-string: 47.110.72.74:2181
+    config:
+      discovery:
+        enabled: true
+        service-id: config
+  application:
+    name: cloud-zuul-keyan
+
+  main:
+    allow-bean-definition-overriding: true
+zuul:
+  sensitive-headers: Access-Control-Allow-Origin
+  ignored-headers: Access-Control-Allow-Origin,H-APP-Id,APPToken
+  max:
+    host:
+      connections: 5000
+  host:
+    socket-timeout-millis: 60000
+    connect-timeout-millis: 60000
+  routes:
+    #    users:
+    #      path: /myService/**
+    #      serviceId: api-serve-local
+    #      url: http://47.110.72.74:8808
+    student:
+      path: /cloudzuul/**
+      serviceId: keyan-service
+  #      url: http://localhost:8081
+  #    codeservice:
+  #      path: /codeservice/**
+  #      serviceId: api-code-serve-local
+  #      url: http://47.110.72.74:8090
+  #      stripPrefix: true
+
+  ignore-local-service: true
+  add-host-header: true
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+#  server:
+#    port: 12345
+
+jwt:
+  config:
+    key: Test
+    ttl: 3600000
+ribbon:
+  ReadTimeout: 60000
+  ConnectTimeout: 60000
+  MaxAutoRetries: 0
+  MaxAutoRetriesNextServer: 1
+hystrix:
+  command:
+    default:
+      execution:
+        timeout:
+          enabled: true
+        isolation:
+          thread:
+            timeoutInMilliseconds: 240000
+
+
+
+
