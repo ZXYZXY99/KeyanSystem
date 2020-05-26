@@ -17,4 +17,7 @@ public interface IProjectSysService extends IService<ProjectSys> {
 
     List<ProjectSys> getlist();
 
+    List<ProjectSys> getUserProject(String username);
+    void updateProject(ProjectSys projectSys);
+
 }

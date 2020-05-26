@@ -16,4 +16,7 @@ import java.util.List;
 public interface IProjectApplayService extends IService<ProjectApplay> {
 
     List<ProjectApplay> getlist();
+
+    void insertAppley(ProjectApplay projectApplay);
+    List<ProjectApplay> getprojectUser(String Username);
 }

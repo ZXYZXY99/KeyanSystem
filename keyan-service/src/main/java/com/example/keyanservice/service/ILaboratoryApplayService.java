@@ -17,4 +17,8 @@ public interface ILaboratoryApplayService extends IService<LaboratoryApplay> {
 
     List<LaboratoryApplay> getlist();
 
+    void addapplay(LaboratoryApplay laboratoryApplay);
+
+    List<LaboratoryApplay> getUserLab(String Username);
+
 }

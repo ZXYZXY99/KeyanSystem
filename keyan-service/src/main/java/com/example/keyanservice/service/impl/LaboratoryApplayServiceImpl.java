@@ -1,6 +1,8 @@
 package com.example.keyanservice.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.example.keyanservice.entity.LaboratoryApplay;
+import com.example.keyanservice.entity.User;
 import com.example.keyanservice.mapper.LaboratoryApplayMapper;
 import com.example.keyanservice.service.ILaboratoryApplayService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -8,6 +10,7 @@ import org.checkerframework.checker.units.qual.A;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.List;
 
 /**
@@ -20,12 +23,23 @@ import java.util.List;
  */
 @Service
 public class LaboratoryApplayServiceImpl extends ServiceImpl<LaboratoryApplayMapper, LaboratoryApplay> implements ILaboratoryApplayService {
-@Autowired
+@Resource
 private LaboratoryApplayMapper laboratoryApplayMapper;
 
 
     @Override
     public List<LaboratoryApplay> getlist() {
         return laboratoryApplayMapper.selectList(null);
+    }
+
+    @Override
+    public void addapplay(LaboratoryApplay laboratoryApplay) {
+        laboratoryApplayMapper.insert(laboratoryApplay);
+    }
+
+    @Override
+    public List<LaboratoryApplay> getUserLab(String Username) {
+        return laboratoryApplayMapper.selectList(new QueryWrapper<LaboratoryApplay>().eq(
+                "applay_laboratory_user", Username));
     }
 }

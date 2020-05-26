@@ -1,5 +1,6 @@
 package com.example.keyanservice.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.example.keyanservice.entity.Laboratory;
 import com.example.keyanservice.mapper.LaboratoryMapper;
 import com.example.keyanservice.service.ILaboratoryService;
@@ -7,6 +8,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.List;
 
 /**
@@ -20,11 +22,23 @@ import java.util.List;
 @Service
 public class LaboratoryServiceImpl extends ServiceImpl<LaboratoryMapper, Laboratory> implements ILaboratoryService {
 
-    @Autowired
+    @Resource
     private LaboratoryMapper laboratoryMapper;
 
     @Override
     public List<Laboratory> getlist() {
-        return laboratoryMapper.selectList(null);
+        return laboratoryMapper.selectList(new QueryWrapper<Laboratory>().eq("laboratory_isuse","no"));
     }
+
+    @Override
+    public void update(Laboratory laboratory) {
+        laboratoryMapper.updateById(laboratory);
+    }
+
+    @Override
+    public Laboratory selectone(int id) {
+        return laboratoryMapper.selectById(id);
+    }
+
+
 }
