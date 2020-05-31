@@ -21,4 +21,7 @@ public interface ILaboratoryApplayService extends IService<LaboratoryApplay> {
 
     List<LaboratoryApplay> getUserLab(String Username);
 
+
+    void UpdateLab(LaboratoryApplay laboratoryApplay);
+
 }

@@ -20,4 +20,10 @@ public interface ILaboratoryService extends IService<Laboratory> {
 
     void update(Laboratory laboratory);
     Laboratory selectone(int id);
+
+    void AddLab(Laboratory laboratory);
+    List<Laboratory> getAll();
+
+    void deleteLab(Laboratory laboratory);
+
 }

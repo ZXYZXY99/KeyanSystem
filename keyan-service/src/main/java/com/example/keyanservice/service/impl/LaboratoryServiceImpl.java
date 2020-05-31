@@ -40,5 +40,20 @@ public class LaboratoryServiceImpl extends ServiceImpl<LaboratoryMapper, Laborat
         return laboratoryMapper.selectById(id);
     }
 
+    @Override
+    public void AddLab(Laboratory laboratory) {
+        laboratoryMapper.insert(laboratory);
+    }
+
+    @Override
+    public List<Laboratory> getAll() {
+        return laboratoryMapper.selectList(null);
+    }
+
+    @Override
+    public void deleteLab(Laboratory laboratory) {
+        laboratoryMapper.deleteById(laboratory.getId());
+    }
+
 
 }

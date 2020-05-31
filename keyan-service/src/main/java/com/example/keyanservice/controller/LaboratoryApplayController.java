@@ -4,16 +4,15 @@ package com.example.keyanservice.controller;
 import com.example.keyanservice.config.JwtUtil;
 import com.example.keyanservice.config.Result;
 import com.example.keyanservice.config.ResultCode;
+import com.example.keyanservice.entity.Laboratory;
 import com.example.keyanservice.entity.LaboratoryApplay;
 import com.example.keyanservice.entity.ProjectApplay;
 import com.example.keyanservice.service.impl.LaboratoryApplayServiceImpl;
+import com.example.keyanservice.service.impl.LaboratoryServiceImpl;
 import io.jsonwebtoken.Claims;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
@@ -35,6 +34,8 @@ public class LaboratoryApplayController {
     private LaboratoryApplayServiceImpl laboratoryApplayService;
     @Autowired
     private JwtUtil jwtUtil;
+    @Autowired
+    private LaboratoryServiceImpl laboratoryService;
 
 
     @GetMapping("/getlist")
@@ -51,13 +52,21 @@ public class LaboratoryApplayController {
         Claims claims = jwtUtil.pasertToken(head);
         String subject = (String) claims.get("userName");
         List<LaboratoryApplay> projectApplays = laboratoryApplayService.getUserLab(subject);
-
-
         return new Result(ResultCode.SUCCESS,projectApplays);
-
-
     }
 
+    @PostMapping("/admin/updateLab")
+    public Result UpdateLab(@RequestBody LaboratoryApplay laboratoryApplay){
+        laboratoryApplayService.UpdateLab(laboratoryApplay);
+        Laboratory laboratory=new Laboratory();
+        laboratory.setLaboratoryNum(laboratoryApplay.getApplayLaboratoryNum());
+        laboratory.setLaboratoryIsuse("yes");
+        laboratory.setLaboratoryUsername(laboratoryApplay.getApplayLaboratoryUser());
 
+        laboratoryService.AddLab(laboratory);
+
+        return new Result(ResultCode.SUCCESS);
+
+    }
 
 }

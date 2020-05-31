@@ -33,8 +33,14 @@ public class LaboratoryController {
     public Result getlist(){
 
         List<Laboratory> laboratoryList = laboratoryService.getlist();
-
         return new Result(ResultCode.SUCCESS,laboratoryList);
+
+    }
+    @GetMapping("/getAll")
+    public Result GetAll(){
+        List<Laboratory> all = laboratoryService.getAll();
+        return new Result(ResultCode.SUCCESS,all);
+
 
     }
 
@@ -43,7 +49,6 @@ public class LaboratoryController {
         Laboratory laboratory = laboratoryService.selectone(id);
         laboratory.setLaboratoryIsuse("yes");
         laboratoryService.update(laboratory);
-
         LaboratoryApplay laboratoryApplay = new LaboratoryApplay();
         laboratoryApplay.setApplayLaboratoryNum(laboratory.getLaboratoryNum());
         laboratoryApplay.setApplayLaboratoryUser(username);
@@ -52,6 +57,19 @@ public class LaboratoryController {
 
         return new Result(ResultCode.SUCCESS);
 
+    }
+
+
+    @PostMapping("/admin/addLab")
+    public Result AddLab(@RequestBody Laboratory laboratory){
+        laboratoryService.AddLab(laboratory);
+        return new Result(ResultCode.SUCCESS);
+    }
+
+    @PostMapping("/admin/deleteLab")
+    public Result DeleteLab(@RequestBody Laboratory laboratory){
+        laboratoryService.deleteLab(laboratory);
+        return new Result(ResultCode.SUCCESS);
     }
 
 

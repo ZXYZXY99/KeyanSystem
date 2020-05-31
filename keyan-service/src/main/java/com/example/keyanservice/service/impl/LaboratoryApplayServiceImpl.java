@@ -42,4 +42,9 @@ private LaboratoryApplayMapper laboratoryApplayMapper;
         return laboratoryApplayMapper.selectList(new QueryWrapper<LaboratoryApplay>().eq(
                 "applay_laboratory_user", Username));
     }
+
+    @Override
+    public void UpdateLab(LaboratoryApplay laboratoryApplay) {
+        laboratoryApplayMapper.updateById(laboratoryApplay);
+    }
 }

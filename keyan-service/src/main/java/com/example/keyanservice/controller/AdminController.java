@@ -4,7 +4,9 @@ package com.example.keyanservice.controller;
 import com.example.keyanservice.config.*;
 import com.example.keyanservice.entity.Admin;
 import com.example.keyanservice.entity.ImgEntity;
+import com.example.keyanservice.entity.User;
 import com.example.keyanservice.service.impl.AdminServiceImpl;
+import com.example.keyanservice.service.impl.UserServiceImpl;
 import io.jsonwebtoken.Claims;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,6 +40,8 @@ public class AdminController {
     private JwtUtil jwtUtil;
     @Autowired
     private GetTOken getTOken;
+    @Autowired
+    private UserServiceImpl userService;
 
 
     @PostMapping("/login")
@@ -214,6 +218,23 @@ public class AdminController {
         return  new Result(ResultCode.FAIL,false);
 
     }
+
+
+    @PostMapping("/deleteUser")
+    public Result DeleteUser(@RequestBody User user){
+        userService.DeleteUser(user);
+        return new Result(ResultCode.SUCCESS);
+    }
+
+    @PostMapping("/updateUser")
+    public Result UpdateUser(@RequestBody User user){
+
+        userService.UpdateUser(user);
+
+        return new Result(ResultCode.SUCCESS);
+    }
+
+
 
 
 }

@@ -39,4 +39,14 @@ private UserMapper userMapper;
     public List<User> islogin(String username) {
         return userMapper.selectList(new QueryWrapper<User>().eq("user_name",username));
     }
+
+    @Override
+    public void DeleteUser(User user) {
+        userMapper.deleteById(user.getId());
+    }
+
+    @Override
+    public void UpdateUser(User user) {
+        userMapper.updateById(user);
+    }
 }

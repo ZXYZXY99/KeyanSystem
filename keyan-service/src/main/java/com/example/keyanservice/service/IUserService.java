@@ -19,4 +19,8 @@ public interface IUserService extends IService<User> {
     List<User> login(User user);
 
     List<User> islogin(String username);
+    void DeleteUser(User user);
+    void UpdateUser(User user);
+
+
 }
