@@ -5,7 +5,9 @@ import com.example.keyanservice.config.JwtUtil;
 import com.example.keyanservice.config.Result;
 import com.example.keyanservice.config.ResultCode;
 import com.example.keyanservice.entity.ProjectApplay;
+import com.example.keyanservice.entity.ProjectSys;
 import com.example.keyanservice.service.impl.ProjectApplayServiceImpl;
+import com.example.keyanservice.service.impl.ProjectSysServiceImpl;
 import io.jsonwebtoken.Claims;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -31,6 +33,8 @@ public class ProjectApplayController {
     private ProjectApplayServiceImpl projectApplayService;
     @Autowired
     private JwtUtil jwtUtil;
+    @Autowired
+    private ProjectSysServiceImpl projectSysService;
 
     @GetMapping("/getlist")
     public Result getlist(){
@@ -61,6 +65,29 @@ public class ProjectApplayController {
     }
 
 
+    @PostMapping("/updateproject")
+
+    public Result UpdateProject(@RequestBody ProjectApplay projectApplay){
+        projectApplayService.updateapplayproject(projectApplay);
+//        System.out.println(projectApplay);
+        ProjectSys projectSys = new ProjectSys();
+
+        projectSys.setProjectName(projectApplay.getApplyProjectName());
+        projectSys.setFunds(Integer.parseInt(projectApplay.getApplyProjectFunds()));
+        projectSys.setProjectUser(projectApplay.getApplyUser());
+        projectSys.setProjectDescribe(projectApplay.getApplyProjectText());
+        projectSysService.addProject(projectSys);
+//        System.out.println(projectSys);
+
+
+        return new Result(ResultCode.SUCCESS);
+    }
+
+    @PostMapping("/getlistByisuse")
+    public Result GetListByisUse(){
+        List<ProjectApplay> projectApplays = projectApplayService.getlistByisuse();
+        return new Result(ResultCode.SUCCESS,projectApplays);
+    }
 
 
 

@@ -24,4 +24,7 @@ public interface ILaboratoryApplayService extends IService<LaboratoryApplay> {
 
     void UpdateLab(LaboratoryApplay laboratoryApplay);
 
+    List<LaboratoryApplay> getApplayIng();
+
+
 }

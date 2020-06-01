@@ -41,4 +41,14 @@ public class ProjectApplayServiceImpl extends ServiceImpl<ProjectApplayMapper, P
         return projectApplayMapper.selectList(new QueryWrapper<ProjectApplay>().eq("apply_user",
                 Username));
     }
+
+    @Override
+    public void updateapplayproject(ProjectApplay projectApplay) {
+        projectApplayMapper.updateById(projectApplay);
+    }
+
+    @Override
+    public List<ProjectApplay> getlistByisuse() {
+        return projectApplayMapper.selectList(new QueryWrapper<ProjectApplay>().isNull("ispass"));
+    }
 }

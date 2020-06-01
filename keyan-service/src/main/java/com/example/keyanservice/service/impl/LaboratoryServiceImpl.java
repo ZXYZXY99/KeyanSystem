@@ -55,5 +55,10 @@ public class LaboratoryServiceImpl extends ServiceImpl<LaboratoryMapper, Laborat
         laboratoryMapper.deleteById(laboratory.getId());
     }
 
+    @Override
+    public List<Laboratory> SelectByNum(String num) {
+        return laboratoryMapper.selectList(new QueryWrapper<Laboratory>().eq("laboratory_num",num));
+    }
+
 
 }

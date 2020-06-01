@@ -47,4 +47,10 @@ private LaboratoryApplayMapper laboratoryApplayMapper;
     public void UpdateLab(LaboratoryApplay laboratoryApplay) {
         laboratoryApplayMapper.updateById(laboratoryApplay);
     }
+
+    @Override
+    public List<LaboratoryApplay> getApplayIng() {
+        return laboratoryApplayMapper.selectList(new QueryWrapper<LaboratoryApplay>()
+                .isNull("ispass"));
+    }
 }

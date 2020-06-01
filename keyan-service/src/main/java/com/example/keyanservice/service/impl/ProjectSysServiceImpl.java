@@ -39,4 +39,9 @@ public class ProjectSysServiceImpl extends ServiceImpl<ProjectSysMapper, Project
     public void updateProject(ProjectSys projectSys) {
         projectSysMapper.updateById(projectSys);
     }
+
+    @Override
+    public void addProject(ProjectSys projectSys) {
+        projectSysMapper.insert(projectSys);
+    }
 }

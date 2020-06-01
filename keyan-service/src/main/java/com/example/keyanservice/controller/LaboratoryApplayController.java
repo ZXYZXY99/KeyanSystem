@@ -59,13 +59,29 @@ public class LaboratoryApplayController {
     public Result UpdateLab(@RequestBody LaboratoryApplay laboratoryApplay){
         laboratoryApplayService.UpdateLab(laboratoryApplay);
         Laboratory laboratory=new Laboratory();
+        if (laboratoryApplay.getIspass().equals("yes")){
+            laboratory.setLaboratoryIsuse("yes");
+
+        }else {
+            laboratory.setLaboratoryIsuse("no");
+            laboratory.setLaboratoryUsername("null");
+        }
+
+        List<Laboratory> laboratories = laboratoryService.SelectByNum(laboratoryApplay.getApplayLaboratoryNum());
+
+
+        laboratory.setId(laboratories.get(0).getId());
         laboratory.setLaboratoryNum(laboratoryApplay.getApplayLaboratoryNum());
-        laboratory.setLaboratoryIsuse("yes");
-        laboratory.setLaboratoryUsername(laboratoryApplay.getApplayLaboratoryUser());
 
-        laboratoryService.AddLab(laboratory);
-
+        laboratoryService.update(laboratory);
         return new Result(ResultCode.SUCCESS);
+    }
+
+    @PostMapping("/admin/getapplaying")
+    public Result GetApplayIng(){
+
+        List<LaboratoryApplay> applayIng = laboratoryApplayService.getApplayIng();
+        return new Result(ResultCode.SUCCESS,applayIng);
 
     }
 

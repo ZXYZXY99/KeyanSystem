@@ -26,4 +26,5 @@ public interface ILaboratoryService extends IService<Laboratory> {
 
     void deleteLab(Laboratory laboratory);
 
+    List<Laboratory> SelectByNum(String num);
 }
