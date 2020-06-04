@@ -21,4 +21,6 @@ public interface IProjectApplayService extends IService<ProjectApplay> {
     List<ProjectApplay> getprojectUser(String Username);
     void updateapplayproject(ProjectApplay projectApplay);
     List<ProjectApplay> getlistByisuse();
+
+    List<ProjectApplay> GetApplayLog();
 }

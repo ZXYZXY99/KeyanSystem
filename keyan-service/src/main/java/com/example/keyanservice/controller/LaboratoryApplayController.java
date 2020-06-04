@@ -85,4 +85,13 @@ public class LaboratoryApplayController {
 
     }
 
+    @GetMapping("/admin/getApplayLog")
+    public Result GetApplayLog(){
+        List<LaboratoryApplay> applayLog = laboratoryApplayService.getApplayLog();
+
+        return new Result(ResultCode.SUCCESS,applayLog);
+
+
+    }
+
 }

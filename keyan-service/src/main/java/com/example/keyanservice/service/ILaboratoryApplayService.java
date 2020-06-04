@@ -26,5 +26,7 @@ public interface ILaboratoryApplayService extends IService<LaboratoryApplay> {
 
     List<LaboratoryApplay> getApplayIng();
 
+    List<LaboratoryApplay> getApplayLog();
+
 
 }

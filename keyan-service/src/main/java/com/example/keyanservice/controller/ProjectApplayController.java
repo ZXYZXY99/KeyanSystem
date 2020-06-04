@@ -45,7 +45,8 @@ public class ProjectApplayController {
 
     @PostMapping("/applayproject")
     public Result ApplayProject(@RequestBody ProjectApplay projectApplay){
-        System.out.println(projectApplay);
+        System.out.println(projectApplay+"Test");
+        projectApplay.setIspass(null);
         projectApplayService.insertAppley(projectApplay);
         return new Result(ResultCode.SUCCESS);
     }
@@ -68,15 +69,16 @@ public class ProjectApplayController {
     @PostMapping("/updateproject")
 
     public Result UpdateProject(@RequestBody ProjectApplay projectApplay){
-        projectApplayService.updateapplayproject(projectApplay);
-//        System.out.println(projectApplay);
-        ProjectSys projectSys = new ProjectSys();
 
-        projectSys.setProjectName(projectApplay.getApplyProjectName());
-        projectSys.setFunds(Integer.parseInt(projectApplay.getApplyProjectFunds()));
-        projectSys.setProjectUser(projectApplay.getApplyUser());
-        projectSys.setProjectDescribe(projectApplay.getApplyProjectText());
-        projectSysService.addProject(projectSys);
+        projectApplayService.updateapplayproject(projectApplay);
+        if (projectApplay.getIspass()=="yes"){
+            ProjectSys projectSys = new ProjectSys();
+            projectSys.setProjectName(projectApplay.getApplyProjectName());
+            projectSys.setFunds(Integer.parseInt(projectApplay.getApplyProjectFunds()));
+            projectSys.setProjectUser(projectApplay.getApplyUser());
+            projectSys.setProjectDescribe(projectApplay.getApplyProjectText());
+            projectSysService.addProject(projectSys);
+        }
 //        System.out.println(projectSys);
 
 
@@ -89,6 +91,13 @@ public class ProjectApplayController {
         return new Result(ResultCode.SUCCESS,projectApplays);
     }
 
+    @GetMapping("/getApplayLog")
+    public Result GetApplayLog(){
+        List<ProjectApplay> projectApplays = projectApplayService.GetApplayLog();
+
+        return new Result(ResultCode.SUCCESS,projectApplays);
+
+    }
 
 
 }

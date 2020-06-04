@@ -53,4 +53,9 @@ private LaboratoryApplayMapper laboratoryApplayMapper;
         return laboratoryApplayMapper.selectList(new QueryWrapper<LaboratoryApplay>()
                 .isNull("ispass"));
     }
+
+    @Override
+    public List<LaboratoryApplay> getApplayLog() {
+        return laboratoryApplayMapper.selectList(new QueryWrapper<LaboratoryApplay>().isNotNull("ispass"));
+    }
 }

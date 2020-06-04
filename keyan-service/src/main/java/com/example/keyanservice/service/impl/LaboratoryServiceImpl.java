@@ -60,5 +60,16 @@ public class LaboratoryServiceImpl extends ServiceImpl<LaboratoryMapper, Laborat
         return laboratoryMapper.selectList(new QueryWrapper<Laboratory>().eq("laboratory_num",num));
     }
 
+    @Override
+    public List<Laboratory> GetMyLab(String username) {
+        return laboratoryMapper.selectList(new QueryWrapper<Laboratory>()
+                .eq("Laboratory_username",username).eq("Laboratory_isuse","yes"));
+    }
+
+    @Override
+    public void ReturnLab(Laboratory laboratory) {
+        laboratoryMapper.updateById(laboratory);
+    }
+
 
 }

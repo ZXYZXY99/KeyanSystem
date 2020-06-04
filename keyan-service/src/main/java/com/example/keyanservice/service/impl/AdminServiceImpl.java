@@ -36,4 +36,7 @@ public class AdminServiceImpl extends ServiceImpl<AdminMapper, Admin> implements
     public List<Admin> islogin(String adminname) {
         return adminMapper.selectList(new QueryWrapper<Admin>().eq("admin_name",adminname));
     }
+
+
+
 }

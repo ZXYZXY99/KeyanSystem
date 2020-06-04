@@ -51,4 +51,9 @@ public class ProjectApplayServiceImpl extends ServiceImpl<ProjectApplayMapper, P
     public List<ProjectApplay> getlistByisuse() {
         return projectApplayMapper.selectList(new QueryWrapper<ProjectApplay>().isNull("ispass"));
     }
+
+    @Override
+    public List<ProjectApplay> GetApplayLog() {
+        return projectApplayMapper.selectList(new QueryWrapper<ProjectApplay>().isNotNull("ispass"));
+    }
 }

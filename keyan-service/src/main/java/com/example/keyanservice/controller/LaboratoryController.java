@@ -1,15 +1,20 @@
 package com.example.keyanservice.controller;
 
 
+import com.example.keyanservice.config.JwtUtil;
 import com.example.keyanservice.config.Result;
 import com.example.keyanservice.config.ResultCode;
 import com.example.keyanservice.entity.Laboratory;
 import com.example.keyanservice.entity.LaboratoryApplay;
 import com.example.keyanservice.service.impl.LaboratoryApplayServiceImpl;
 import com.example.keyanservice.service.impl.LaboratoryServiceImpl;
+import io.jsonwebtoken.Claims;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 /**
@@ -28,13 +33,13 @@ public class LaboratoryController {
     private LaboratoryServiceImpl laboratoryService;
     @Autowired
     private LaboratoryApplayServiceImpl laboratoryApplayService;
+    @Autowired
+    private JwtUtil jwtUtil;
 
     @GetMapping("/getlist")
     public Result getlist(){
-
         List<Laboratory> laboratoryList = laboratoryService.getlist();
         return new Result(ResultCode.SUCCESS,laboratoryList);
-
     }
     @GetMapping("/getAll")
     public Result GetAll(){
@@ -72,6 +77,24 @@ public class LaboratoryController {
         return new Result(ResultCode.SUCCESS);
     }
 
+    @PostMapping("/getmyLab")
+    public Result GetMyLab(){
+        HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
+        String head = request.getHeader("token");
+        System.out.println(head);
+        Claims claims = jwtUtil.pasertToken(head);
+        String subject = (String) claims.get("userName");
+        List<Laboratory> laboratories = laboratoryService.GetMyLab(subject);
+        return new Result(ResultCode.SUCCESS,laboratories);
+    }
 
+    @PostMapping("/returnLab")
+    public Result ReturnLab(@RequestBody Laboratory laboratory){
+        laboratory.setLaboratoryIsuse("no");
+        laboratory.setLaboratoryUsername("null");
+        laboratoryService.ReturnLab(laboratory);
+
+        return new Result(ResultCode.SUCCESS);
+    }
 
 }
