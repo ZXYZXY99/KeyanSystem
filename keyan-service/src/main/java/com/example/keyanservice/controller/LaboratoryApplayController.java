@@ -71,8 +71,11 @@ public class LaboratoryApplayController {
 
 
         laboratory.setId(laboratories.get(0).getId());
-        laboratory.setLaboratoryNum(laboratoryApplay.getApplayLaboratoryNum());
 
+        laboratory.setLaboratoryNum(laboratoryApplay.getApplayLaboratoryNum());
+        System.out.println(laboratoryApplay);
+        System.out.println(laboratory);
+        laboratory.setLaboratoryUsername(laboratoryApplay.getApplayLaboratoryUser());
         laboratoryService.update(laboratory);
         return new Result(ResultCode.SUCCESS);
     }
